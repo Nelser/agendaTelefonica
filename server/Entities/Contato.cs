@@ -9,7 +9,8 @@ namespace server.Entities
         [Required]
         public string Nome { get; set; }
         [Required]
-        public int Numero { get; set; }
+        [StringLength(15)]
+        public string Numero { get; set; }
         [RegularExpression(".+\\@.+\\..+",ErrorMessage = "Informe um email válido...")]
         public string Email { get; set; }
 
@@ -18,14 +19,14 @@ namespace server.Entities
             Id = id;
         }
 
-        public Contato(string nome, int numero, string email)
+        public Contato(string nome, string numero, string email)
         {
             Nome = nome;
             Numero = numero;
             Email = email;
         }
 
-        public Contato(int id, string nome, int numero, string email)
+        public Contato(int id, string nome, string numero, string email)
         {
             Id = id;
             Nome = nome;

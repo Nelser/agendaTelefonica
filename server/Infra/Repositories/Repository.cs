@@ -23,8 +23,8 @@ namespace server.Infra.Repositories
 
         public async Task DeleteAsync(TEntity entity)
         {
-            _context.Remove(entity);
-            await UpdateAsync(entity);
+            await Task.Run(() => _context.Remove(entity));
+            // await UpdateAsync(entity);
         }
 
         public async Task UpdateAsync(TEntity entity)

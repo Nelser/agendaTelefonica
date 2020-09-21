@@ -27,31 +27,33 @@ namespace server.Controllers
         public async Task<IList> MostrarContatos()
         {
             var query = await _repository.MostrarContatos();
-            await _uow.SaveChangesAsync();
             return query.ToList();
         }
 
-        [HttpPost("/criar")]
+        [HttpPost("add")]
         public async Task<IActionResult> CriarContato([FromBody] ContatoDTO dto)
         {
             Contato contato = new Contato(dto.Nome, dto.Numero, dto.Email);
             await _repository.AdicionarContato(contato);
+            await _uow.SaveChangesAsync();
             return Ok();
         }
 
-        [HttpPut("/editar:{id}")]
+        [HttpPut("edit/{id}")]
         public async Task<IActionResult> EditarContato([FromRoute] int id, [FromBody] ContatoDTO dto)
         {
             Contato contato = new Contato(id, dto.Nome, dto.Numero, dto.Email);
             await _repository.EditarContato(contato);
+            await _uow.SaveChangesAsync();
             return Ok();
         }
 
-        [HttpDelete("/deletar:{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> ExcluirContato([FromRoute] int id)
         {
             Contato contato = new Contato(id);
             await _repository.ExcluirContato(contato);
+            await _uow.SaveChangesAsync();
             return Ok();
         }
     }
